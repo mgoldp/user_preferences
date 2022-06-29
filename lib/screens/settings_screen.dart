@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:user_preferences/providers/theme_provider.dart';
 import 'package:user_preferences/shared_preferences/preferencias.dart';
 import 'package:user_preferences/widgets/custom_drawer.dart';
 
@@ -35,6 +37,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     title: const Text('Dark Mode'),
                     onChanged: (value) {
                       Prefrences.isDarkmode = value;
+                      final themeProvider =
+                          Provider.of<ThemeProvider>(context, listen: false);
+
+                      value
+                          ? themeProvider.setDarkmode()
+                          : themeProvider.setLightMode();
+
                       setState(() {});
                     }),
                 const Divider(),
